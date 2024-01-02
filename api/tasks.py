@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 @app.task
 def check_patient_rooms():
     year = datetime.now().year
-    patient_rooms = Patient.objects.filter(duration__gt=0).filter(created_date__year=year)
+    patient_rooms = Patient.objects.filter(duration__gt=0).filter(created_date__year=year).filter(room_status=False)
     if patient_rooms.exists():
         for room in patient_rooms:
             today = datetime.now().strftime('%m-%d')
